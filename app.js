@@ -1,8 +1,21 @@
-const http = require("http");
+const express = require("express");
+const app = express();
+const port = 8080;
 
-http
-  .createServer((req, res) => {
-    res.write("Olá Marshal");
-    res.end();
-  })
-  .listen(8080);
+// Servir conteudo estático, aqui serve o / com o index.html
+app.use(express.static("public"));
+
+app.get("/generic", (req, res) => {
+  res.sendFile(__dirname + "/public/generic.html");
+});
+
+app.get("/elements", (req, res) => {
+  res.sendFile(__dirname + "/public/elements.html");
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/public/404.html");
+});
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
