@@ -1,16 +1,34 @@
 const express = require("express");
+const hbs = require("hbs");
+
 const app = express();
 const port = 8080;
+
+hbs.registerPartials(__dirname + "/views/partials", function (err) {});
+app.set("view engine", "hbs");
 
 // Servir conteudo estático, aqui serve o / com o index.html
 app.use(express.static("public"));
 
+app.get("/", (req, res) => {
+  res.render("home", {
+    nombre: "Marshal Mori Cavalheiro",
+    titulo: "App com Node",
+  });
+});
+
 app.get("/generic", (req, res) => {
-  res.sendFile(__dirname + "/public/generic.html");
+  res.render("generic", {
+    nombre: "Marshal Mori Cavalheiro",
+    titulo: "App com Node",
+  });
 });
 
 app.get("/elements", (req, res) => {
-  res.sendFile(__dirname + "/public/elements.html");
+  res.render("elements", {
+    nombre: "Marshal Mori Cavalheiro",
+    titulo: "App com Node",
+  });
 });
 
 app.get("*", (req, res) => {
