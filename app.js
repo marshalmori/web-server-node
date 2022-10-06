@@ -1,10 +1,12 @@
+require("dotenv").config();
+
 const express = require("express");
 const hbs = require("hbs");
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
-hbs.registerPartials(__dirname + "/views/partials", function (err) {});
+hbs.registerPartials(__dirname + "/views/partials");
 app.set("view engine", "hbs");
 
 // Servir conteudo estático, aqui serve o / com o index.html
